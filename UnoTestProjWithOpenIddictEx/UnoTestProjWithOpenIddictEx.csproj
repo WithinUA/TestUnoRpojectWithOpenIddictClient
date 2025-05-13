@@ -1,0 +1,46 @@
+<Project Sdk="Uno.Sdk">
+  <PropertyGroup>
+    <TargetFrameworks>net9.0-browserwasm</TargetFrameworks>
+
+    <OutputType>Exe</OutputType>
+    <UnoSingleProject>true</UnoSingleProject>
+
+    <!-- Display name -->
+    <ApplicationTitle>UnoTestProjWithOpenIddictEx</ApplicationTitle>
+    <!-- App Identifier -->
+    <ApplicationId>com.companyname.UnoTestProjWithOpenIddictEx</ApplicationId>
+    <!-- Versions -->
+    <ApplicationDisplayVersion>1.0</ApplicationDisplayVersion>
+    <ApplicationVersion>1</ApplicationVersion>
+    <!-- Package Publisher -->
+    <ApplicationPublisher>Ваньчик</ApplicationPublisher>
+    <!-- Package Description -->
+    <Description>UnoTestProjWithOpenIddictEx powered by Uno Platform.</Description>
+
+    <!--
+      UnoFeatures let's you quickly add and manage implicit package references based on the features you want to use.
+      https://aka.platform.uno/singleproject-features
+    -->
+    <UnoFeatures>
+      Lottie;
+      Hosting;
+      Toolkit;
+      Logging;
+      Configuration;
+      SkiaRenderer;
+    </UnoFeatures>
+  </PropertyGroup>
+
+    <ItemGroup>
+        <EmbeddedResource Include="Platforms\WebAssembly\WasmScripts\**\*.js" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <PackageReference Include="Microsoft.JSInterop" />
+      <PackageReference Include="OpenIddict.Client.SystemIntegration" />
+      <PackageReference Include="OpenIddict.Client.SystemNetHttp" />
+      <PackageReference Include="OpenIddict.Core" />
+    </ItemGroup>
+
+
+</Project>

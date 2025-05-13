@@ -1,0 +1,10 @@
+{
+  "background_color": "#ffffff",
+  "description": "UnoTestProjWithOpenIddictEx",
+  "display": "standalone",
+  "name": "UnoTestProjWithOpenIddictEx",
+  "short_name": "UnoTestProjWithOpenIddictEx",
+  "start_url": "/index.html",
+  "theme_color": "#ffffff",
+  "scope": "/"
+}
