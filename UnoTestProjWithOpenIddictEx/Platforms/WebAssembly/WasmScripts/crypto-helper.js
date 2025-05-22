@@ -306,7 +306,6 @@ async function decryptAndSaveToKeyStore() {
     } else {
         console.log("Keys already exist.");
         await decryptAndSaveToKeyStore();
-
     }
 })();
 

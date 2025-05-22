@@ -64,7 +64,7 @@ public partial class App : Application
                     // TODO: Register your services
                     //services.AddSingleton<IMyService, MyService>();
                 })
-            //.ConfigureServices(openIddictClientBuilder.ConfigureServices)
+                .ConfigureServices(openIddictClientBuilder.ConfigureServices)
             );
         MainWindow = builder.Window;
 

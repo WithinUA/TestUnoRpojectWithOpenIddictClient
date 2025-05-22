@@ -1,20 +1,21 @@
 namespace Ecierge.Console;
 
+using global::OpenIddict.Abstractions;
+using global::OpenIddict.Client;
+using Ecierge.Console.Platforms.WebAssembly;
+using global::Uno.Foundation;
+using Microsoft.Extensions.Hosting;
+using Microsoft.IdentityModel.Tokens;
 using System;
+using System.Diagnostics;
 using System.Diagnostics.CodeAnalysis;
 using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;
-using System.Runtime.Versioning;
-using System.Security.Cryptography;
-using global::OpenIddict.Abstractions;
-using global::OpenIddict.Client;
-using Microsoft.Extensions.Hosting;
-using Microsoft.IdentityModel.Tokens;
-using Windows.ApplicationModel.Activation;
 
 #if __WASM__
-using Ecierge.Console.Platforms.WebAssembly;
-using global::Uno.Foundation;
+using System.Runtime.Versioning;
+using System.Security.Cryptography;
+using Windows.ApplicationModel.Activation;
 #endif
 
 internal struct OpenIddictClientBuilder(SecurityKey? EncryptionKey, SecurityKey? SigningKey)
@@ -42,7 +43,9 @@ internal struct OpenIddictClientBuilder(SecurityKey? EncryptionKey, SecurityKey?
         {
             var provider = CngProvider.MicrosoftSoftwareKeyStorageProvider;
             var encryptionKey = await GetRsaKeyAsync("Ecierge encryption key", CngKeyUsages.Decryption, provider);
+            Console.WriteLine($"Encryption key: {encryptionKey}");
             var signingKey = await GetRsaKeyAsync("Ecierge signing key", CngKeyUsages.Signing, provider);
+            Console.WriteLine($"Signing key: {signingKey}");
             return new OpenIddictClientBuilder(encryptionKey, signingKey);
         }
     }
@@ -65,6 +68,7 @@ internal struct OpenIddictClientBuilder(SecurityKey? EncryptionKey, SecurityKey?
         catch (Exception ex)
         {
             Console.WriteLine($"Error creating key: {ex.Message}");
+            Console.WriteLine($"Error creating key: {ex.StackTrace}");
             throw;
         }
 #pragma warning restore CA2000 // Dispose objects before losing scope
@@ -73,6 +77,7 @@ internal struct OpenIddictClientBuilder(SecurityKey? EncryptionKey, SecurityKey?
 #pragma warning disable CA1506 // Avoid excessive class coupling
     public void ConfigureServices([NotNull] HostBuilderContext context, [NotNull] IServiceCollection services)
     {
+        Console.WriteLine($"Configuring OpenIddict client services...");
         var encryptionKey = EncryptionKey;
         var signingKey = SigningKey;
         services.AddOpenIddict()

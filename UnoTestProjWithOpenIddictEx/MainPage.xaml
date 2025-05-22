@@ -6,14 +6,12 @@
       Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
   <ScrollViewer IsTabStop="True">
     <Grid utu:SafeArea.Insets="VisibleBounds">
-      <StackPanel
-        HorizontalAlignment="Center"
-        VerticalAlignment="Center">
-        <TextBlock AutomationProperties.AutomationId="HelloTextBlock"
-          Text="Hello Uno Platform!"
-          HorizontalAlignment="Center" />
-                <Button Click="Button_Click"/>
-            </StackPanel>
+      <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center">
+        <TextBlock HorizontalAlignment="Center"
+                   AutomationProperties.AutomationId="HelloTextBlock"
+                   Text="Hello Uno Platform!" />
+        <Button Click="Button_Click" Content="Login" />
+      </StackPanel>
     </Grid>
   </ScrollViewer>
 </Page>
