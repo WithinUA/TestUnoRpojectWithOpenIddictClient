@@ -1,13 +1,11 @@
 namespace Ecierge.Console;
 
-using global::OpenIddict.Abstractions;
 using global::OpenIddict.Client;
 using Ecierge.Console.Platforms.WebAssembly;
 using global::Uno.Foundation;
 using Microsoft.Extensions.Hosting;
 using Microsoft.IdentityModel.Tokens;
 using System;
-using System.Diagnostics;
 using System.Diagnostics.CodeAnalysis;
 using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;
@@ -16,6 +14,7 @@ using System.Runtime.InteropServices;
 using System.Runtime.Versioning;
 using System.Security.Cryptography;
 using Windows.ApplicationModel.Activation;
+using static OpenIddict.Abstractions.OpenIddictConstants;
 #endif
 
 internal struct OpenIddictClientBuilder(SecurityKey? EncryptionKey, SecurityKey? SigningKey)
@@ -126,34 +125,20 @@ internal struct OpenIddictClientBuilder(SecurityKey? EncryptionKey, SecurityKey?
 #endif
                 options.AddRegistration(new OpenIddictClientRegistration
                 {
-                    Issuer = new Uri("https://localhost:8080"),
-                    ProviderName = "<ProviderName>",
+                    Issuer = new Uri("https://localhost:44395/", UriKind.Absolute),
+                    ProviderName = "Local",
 
-                    ClientId = "console",
+                    ClientId = "wpf",
 
                     // This sample uses protocol activations with a custom URI scheme to handle callbacks.
                     //
                     // For more information on how to construct private-use URI schemes,
                     // read https://www.rfc-editor.org/rfc/rfc8252#section-7.1 and
                     // https://www.rfc-editor.org/rfc/rfc7595#section-3.8.
+                    PostLogoutRedirectUri = new Uri("com.openiddict.sandbox.wpf.client:/callback/logout/local", UriKind.Absolute),
+                    RedirectUri = new Uri("com.openiddict.sandbox.wpf.client:/callback/login/local", UriKind.Absolute),
 
-#if __WASM__
-                    //RedirectUri = serverOptions.RedirectUri,
-                    //PostLogoutRedirectUri = serverOptions.PostLogoutRedirectUri,
-                    RedirectUri = new Uri("https://localhost:5000/login"),
-                    PostLogoutRedirectUri = new Uri("https://localhost:5000/logout"),
-#else
-                    RedirectUri = new Uri(RedirectUris.getAuthProtocolRedirectUri(RedirectUris.ConsoleScheme, environmentName), UriKind.Absolute),
-                    PostLogoutRedirectUri = new Uri(RedirectUris.getHomeProtocolRedirectUri(RedirectUris.ConsoleScheme, environmentName), UriKind.Absolute),
-#endif
-
-                    Scopes = {
-                        OpenIddictConstants.Scopes.OfflineAccess,
-                        OpenIddictConstants.Scopes.Email,
-                        OpenIddictConstants.Scopes.Profile,
-                        OpenIddictConstants.Scopes.Roles,
-                        OpenIddictConstants.Scopes.Phone
-                    }
+                    Scopes = { Scopes.Email, Scopes.Profile, Scopes.OfflineAccess, "demo_api" }
                 });
             });
     }

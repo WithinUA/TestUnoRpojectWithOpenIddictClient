@@ -1,15 +1,11 @@
 namespace Ecierge.Console.Platforms.WebAssembly;
 
 
-using Ecierge.Console.Services.KeyStorage;
-
-using Microsoft.IdentityModel.Tokens;
-
 using System;
-using System.Diagnostics;
 using System.Runtime.InteropServices.JavaScript;
 using System.Text.Json;
-
+using Ecierge.Console.Services.KeyStorage;
+using Microsoft.IdentityModel.Tokens;
 using Uno.Foundation;
 
 public partial class WasmKeyStorage : IKeyStorage
@@ -52,7 +48,7 @@ public partial class WasmKeyStorage : IKeyStorage
     {
         try
         {
-            Debugger.Break();
+            //Debugger.Break();
             var jwkJson = await GetKeyForCSharp(name);
 
             if (string.IsNullOrEmpty(jwkJson))

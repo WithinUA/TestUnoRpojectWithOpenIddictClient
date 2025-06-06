@@ -9,8 +9,8 @@
   </ItemGroup>
   <ItemGroup>
     <PackageVersion Include="Microsoft.JSInterop" Version="9.0.4" />
-    <PackageVersion Include="OpenIddict.Client.SystemIntegration" Version="5.8.0" />
-    <PackageVersion Include="OpenIddict.Client.SystemNetHttp" Version="5.8.0" />
-    <PackageVersion Include="OpenIddict.Core" Version="5.8.0" />
+    <PackageVersion Include="OpenIddict.Client.SystemIntegration" Version="6.3.0" />
+    <PackageVersion Include="OpenIddict.Client.SystemNetHttp" Version="6.3.0" />
+    <PackageVersion Include="OpenIddict.Core" Version="6.3.0" />
   </ItemGroup>
 </Project>
